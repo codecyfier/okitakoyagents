@@ -23,8 +23,6 @@ select:focus, textarea:focus { outline: 2px solid #d29374; outline-offset: 1px; 
 .answer-section { padding-top: 18px; border-top: 1px solid #d9d3ca; }
 .section-heading { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 10px; }
 .status { color: #756c62; font-size: 12px; }
-.answer { min-height: 125px; margin-bottom: 13px; padding: 13px; white-space: pre-wrap; overflow-wrap: anywhere; border: 1px solid #ded7ce; border-radius: 4px; background: #fffdf9; color: #3b3835; }
-.insert { width: 100%; background: #315e48; color: white; }
-.insert:hover:not(:disabled) { background: #244a38; }
+.answer { min-height: 125px; padding: 13px; white-space: pre-wrap; overflow-wrap: anywhere; border: 1px solid #ded7ce; border-radius: 4px; background: #fffdf9; color: #3b3835; }
 .message-panel { padding: 28px; }
 .message-panel h1 { margin-bottom: 8px; }

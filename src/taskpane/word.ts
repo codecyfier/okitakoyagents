@@ -6,7 +6,7 @@
 /* global document, Office, Word, fetch, HTMLElement, HTMLTextAreaElement, HTMLButtonElement, HTMLSelectElement */
 
 const systemPrompt =
-  "Tu es un assistant expert de Microsoft Word. Réponds en français avec une rédaction professionnelle, claire et directement exploitable dans un document Word. N'utilise jamais de Markdown visible : pas de #, ##, ###, *, **, _, backticks, puces avec tirets ou symboles de séparation. Structure le contenu avec des titres courts, des paragraphes et des listes numérotées ou à puces en texte simple. N'ajoute pas de préambule inutile ni de mention de ton formatage. Quand une réponse doit être insérée dans Word, privilégie une formulation naturelle et soignée.";
+  "Tu es un assistant expert de Microsoft Word. Réponds en français avec une rédaction professionnelle et directement exploitable dans Word. N'utilise jamais de Markdown visible : pas de #, *, _, backticks, puces avec tirets ou séparateurs. Structure naturellement le contenu avec un titre court au début, des sous-titres sur des lignes séparées terminés par deux-points, des paragraphes aérés, des listes numérotées avec 1. ou des listes à puces avec •, des citations entre guillemets si nécessaire, et des tableaux simples avec le caractère | uniquement quand c'est utile. N'ajoute pas de préambule ni de mention de ton formatage.";
 let latestAnswer = "";
 
 function element<T extends HTMLElement>(id: string): T {
@@ -37,6 +37,7 @@ function answerToWordHtml(value: string): string {
   let paragraph: string[] = [];
   let listItems: string[] = [];
   let listType = "";
+  let hasContent = false;
 
   const flushParagraph = (): void => {
     if (paragraph.length) {
@@ -53,20 +54,58 @@ function answerToWordHtml(value: string): string {
     }
   };
 
-  lines.forEach((line) => {
+  const isTableRow = (line: string): boolean => line.includes("|") && line.split("|").length >= 3;
+
+  const tableHtml = (tableLines: string[]): string => {
+    const rows = tableLines
+      .filter((line) => !/^\s*\|?\s*:?-{2,}:?\s*(\|\s*:?-{2,}:?\s*)+\|?\s*$/.test(line))
+      .map((line) => line.split("|").map((cell) => cell.trim()).filter(Boolean));
+    if (!rows.length) return "";
+    const header = rows[0].map((cell) => `<th style="background-color:#eee8df;color:#315e48">${inlineMarkdownToHtml(cell)}</th>`).join("");
+    const body = rows.slice(1).map((row) => `<tr>${row.map((cell) => `<td>${inlineMarkdownToHtml(cell)}</td>`).join("")}</tr>`).join("");
+    return `<table><thead><tr>${header}</tr></thead><tbody>${body}</tbody></table>`;
+  };
+
+  for (let index = 0; index < lines.length; index += 1) {
+    const line = lines[index];
     const trimmedLine = line.trim();
     const headingMatch = trimmedLine.match(/^#{1,3}\s+(.+)$/);
     const unorderedMatch = trimmedLine.match(/^(?:[-*+]\s+|•\s+)(.+)$/);
     const orderedMatch = trimmedLine.match(/^\d+[.)]\s+(.+)$/);
+    const plainHeading = trimmedLine.match(/^([^.!?]{2,90}):$/);
+    const tableLines: string[] = [];
+
+    if (isTableRow(trimmedLine) && isTableRow(lines[index + 1] || "")) {
+      flushParagraph();
+      flushList();
+      while (index < lines.length && isTableRow(lines[index].trim())) {
+        tableLines.push(lines[index].trim());
+        index += 1;
+      }
+      index -= 1;
+      blocks.push(tableHtml(tableLines));
+      hasContent = true;
+      continue;
+    }
 
     if (!trimmedLine) {
+      flushParagraph();
+      flushList();
+    } else if (/^[—-]{3,}$/.test(trimmedLine)) {
       flushParagraph();
       flushList();
     } else if (headingMatch) {
       flushParagraph();
       flushList();
       const headingLevel = trimmedLine.match(/^#+/)?.[0].length || 2;
-      blocks.push(`<h${headingLevel}>${inlineMarkdownToHtml(headingMatch[1])}</h${headingLevel}>`);
+      blocks.push(`<h${headingLevel} style="color:#315e48">${inlineMarkdownToHtml(headingMatch[1])}</h${headingLevel}>`);
+      hasContent = true;
+    } else if (plainHeading || (!hasContent && trimmedLine.length <= 90)) {
+      flushParagraph();
+      flushList();
+      const headingText = plainHeading ? plainHeading[1] : trimmedLine;
+      blocks.push(`<h${hasContent ? 2 : 1} style="color:#315e48">${inlineMarkdownToHtml(headingText.replace(/:$/, ""))}</h${hasContent ? 2 : 1}>`);
+      hasContent = true;
     } else if (unorderedMatch || orderedMatch) {
       flushParagraph();
       const nextListType = orderedMatch ? "ol" : "ul";
@@ -74,11 +113,18 @@ function answerToWordHtml(value: string): string {
       listType = nextListType;
       const listText = orderedMatch ? orderedMatch[1] : unorderedMatch?.[1] || "";
       listItems.push(`<li>${inlineMarkdownToHtml(listText)}</li>`);
+      hasContent = true;
+    } else if (/^["«].+["»]$/.test(trimmedLine)) {
+      flushParagraph();
+      flushList();
+      blocks.push(`<blockquote style="border-left:3px solid #9b4d2f;color:#665f56">${inlineMarkdownToHtml(trimmedLine)}</blockquote>`);
+      hasContent = true;
     } else {
       flushList();
       paragraph.push(trimmedLine);
+      hasContent = true;
     }
-  });
+  }
 
   flushParagraph();
   flushList();
@@ -104,7 +150,6 @@ async function askOmniroute(): Promise<void> {
     return;
   }
   send.disabled = true;
-  element<HTMLButtonElement>("insert").disabled = true;
   status.textContent = "Réflexion...";
   answer.textContent = "";
   try {
@@ -125,8 +170,8 @@ async function askOmniroute(): Promise<void> {
     }
     latestAnswer = data.choices?.[0]?.message?.content || "Aucune réponse reçue.";
     answer.textContent = latestAnswer;
-    element<HTMLButtonElement>("insert").disabled = !latestAnswer;
-    status.textContent = "Réponse reçue";
+    status.textContent = "Insertion dans Word...";
+    await insertAnswer();
   } catch (error) {
     status.textContent = "Erreur";
     answer.textContent =
@@ -175,6 +220,5 @@ Office.onReady((info) => {
     element("app-body").hidden = false;
     element<HTMLButtonElement>("send").onclick = () => void askOmniroute();
     element<HTMLButtonElement>("use-selection").onclick = () => void useSelection();
-    element<HTMLButtonElement>("insert").onclick = () => void insertAnswer();
   }
 });
