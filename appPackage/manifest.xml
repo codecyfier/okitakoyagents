@@ -6,11 +6,11 @@
   <DefaultLocale>fr-FR</DefaultLocale>
   <DisplayName DefaultValue="Omniroute pour Word" />
   <Description DefaultValue="Assistant IA Omniroute dans Microsoft Word." />
-  <IconUrl DefaultValue="https://REMPLACER-PAR-URL-RENDER.onrender.com/assets/icon-32.png" />
-  <HighResolutionIconUrl DefaultValue="https://REMPLACER-PAR-URL-RENDER.onrender.com/assets/icon-80.png" />
-  <SupportUrl DefaultValue="https://REMPLACER-PAR-URL-RENDER.onrender.com/" />
+  <IconUrl DefaultValue="https://okitakoy-agents.onrender.com/assets/icon-32.png" />
+  <HighResolutionIconUrl DefaultValue="https://okitakoy-agents.onrender.com/assets/icon-80.png" />
+  <SupportUrl DefaultValue="https://okitakoy-agents.onrender.com/" />
   <AppDomains>
-    <AppDomain>https://REMPLACER-PAR-URL-RENDER.onrender.com</AppDomain>
+    <AppDomain>https://okitakoy-agents.onrender.com</AppDomain>
   </AppDomains>
   <Hosts>
     <Host Name="Document" />
@@ -21,7 +21,7 @@
     </Sets>
   </Requirements>
   <DefaultSettings>
-    <SourceLocation DefaultValue="https://REMPLACER-PAR-URL-RENDER.onrender.com/taskpane.html" />
+    <SourceLocation DefaultValue="https://okitakoy-agents.onrender.com/taskpane.html" />
   </DefaultSettings>
   <Permissions>ReadWriteDocument</Permissions>
   <VersionOverrides xmlns="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="VersionOverridesV1_0">
@@ -68,13 +68,13 @@
     </Hosts>
     <Resources>
       <bt:Images>
-        <bt:Image id="Icon.16" DefaultValue="https://REMPLACER-PAR-URL-RENDER.onrender.com/assets/icon-16.png" />
-        <bt:Image id="Icon.32" DefaultValue="https://REMPLACER-PAR-URL-RENDER.onrender.com/assets/icon-32.png" />
-        <bt:Image id="Icon.80" DefaultValue="https://REMPLACER-PAR-URL-RENDER.onrender.com/assets/icon-80.png" />
+        <bt:Image id="Icon.16" DefaultValue="https://okitakoy-agents.onrender.com/assets/icon-16.png" />
+        <bt:Image id="Icon.32" DefaultValue="https://okitakoy-agents.onrender.com/assets/icon-32.png" />
+        <bt:Image id="Icon.80" DefaultValue="https://okitakoy-agents.onrender.com/assets/icon-80.png" />
       </bt:Images>
       <bt:Urls>
-        <bt:Url id="Taskpane.Url" DefaultValue="https://REMPLACER-PAR-URL-RENDER.onrender.com/taskpane.html" />
-        <bt:Url id="Commands.Url" DefaultValue="https://REMPLACER-PAR-URL-RENDER.onrender.com/commands.html" />
+        <bt:Url id="Taskpane.Url" DefaultValue="https://okitakoy-agents.onrender.com/taskpane.html" />
+        <bt:Url id="Commands.Url" DefaultValue="https://okitakoy-agents.onrender.com/commands.html" />
       </bt:Urls>
       <bt:ShortStrings>
         <bt:String id="Omniroute.GroupLabel" DefaultValue="Omniroute" />

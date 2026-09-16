@@ -13,9 +13,9 @@
     },
     "developer": {
         "name": "Contoso",
-        "websiteUrl": "https://www.contoso.com",
-        "privacyUrl": "https://www.contoso.com/privacy",
-        "termsOfUseUrl": "https://www.contoso.com/servicesagreement"
+        "websiteUrl": "https://okitakoy-agents.onrender.com",
+        "privacyUrl": "https://okitakoy-agents.onrender.com/",
+        "termsOfUseUrl": "https://okitakoy-agents.onrender.com/"
     },
     "icons": {
         "outline": "assets/outline.png",
@@ -41,7 +41,7 @@
         }
     },
     "validDomains": [
-        "contoso.com"
+        "okitakoy-agents.onrender.com"
     ],
     "extensions": [
         {
