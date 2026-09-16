@@ -6,8 +6,10 @@
 /* global document, Office, Word, fetch, HTMLElement, HTMLTextAreaElement, HTMLButtonElement, HTMLSelectElement */
 
 const systemPrompt =
-  "Tu es un assistant expert de Microsoft Word. Réponds en français avec une rédaction professionnelle et directement exploitable dans Word. N'utilise jamais de Markdown visible : pas de #, *, _, backticks, puces avec tirets ou séparateurs. Structure naturellement le contenu avec un titre court au début, des sous-titres sur des lignes séparées terminés par deux-points, des paragraphes aérés, des listes numérotées avec 1. ou des listes à puces avec •, des citations entre guillemets si nécessaire, et des tableaux simples avec le caractère | uniquement quand c'est utile. N'ajoute pas de préambule ni de mention de ton formatage.";
+  "Tu es un assistant expert de Microsoft Word. Le document courant et la sélection éventuelle sont fournis dans chaque demande : utilise-les directement, sans demander à l'utilisateur de les recoller ou de les joindre. Pour une correction, retourne le texte corrigé prêt à remplacer le passage concerné. Pour une analyse, retourne une analyse structurée et directement exploitable. Pour une demande de mise en forme, retourne le contenu final correctement structuré. Réponds en français avec une rédaction professionnelle. N'utilise jamais de Markdown visible : pas de #, *, _, backticks, puces avec tirets ou séparateurs. Structure naturellement le contenu avec un titre court au début, des sous-titres sur des lignes séparées terminés par deux-points, des paragraphes aérés, des listes numérotées avec 1. ou des listes à puces avec •, des citations entre guillemets si nécessaire, et des tableaux simples avec le caractère | uniquement quand c'est utile. N'ajoute pas de préambule ni de mention de ton formatage.";
 let latestAnswer = "";
+let replaceWholeDocument = false;
+const maximumDocumentCharacters = 50000;
 
 function element<T extends HTMLElement>(id: string): T {
   return document.getElementById(id) as T;
@@ -140,6 +142,20 @@ async function getSelectionText(): Promise<string> {
   });
 }
 
+async function getDocumentContext(): Promise<{ documentText: string; selectionText: string }> {
+  return Word.run(async (context) => {
+    const body = context.document.body;
+    const selection = context.document.getSelection();
+    body.load("text");
+    selection.load("text");
+    await context.sync();
+    return {
+      documentText: body.text.slice(0, maximumDocumentCharacters),
+      selectionText: selection.text.trim(),
+    };
+  });
+}
+
 async function askOmniroute(): Promise<void> {
   const question = element<HTMLTextAreaElement>("question").value.trim();
   const status = element("status");
@@ -153,6 +169,22 @@ async function askOmniroute(): Promise<void> {
   status.textContent = "Réflexion...";
   answer.textContent = "";
   try {
+    status.textContent = "Lecture du document...";
+    const documentContext = await getDocumentContext();
+    replaceWholeDocument =
+      !documentContext.selectionText &&
+      /\b(corrig|orthograph|grammaire|faute|réécri|reécri)/i.test(question);
+    const contextMessage = [
+      "DOCUMENT WORD COURANT :",
+      documentContext.documentText || "(Le document est vide.)",
+      "",
+      "TEXTE ACTUELLEMENT SÉLECTIONNÉ :",
+      documentContext.selectionText || "(Aucune sélection.)",
+      "",
+      "DEMANDE DE L'UTILISATEUR :",
+      question,
+    ].join("\n");
+    status.textContent = "Analyse du document...";
     const response = await fetch("/api/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -160,7 +192,7 @@ async function askOmniroute(): Promise<void> {
         model: element<HTMLSelectElement>("model").value,
         messages: [
           { role: "system", content: systemPrompt },
-          { role: "user", content: question },
+          { role: "user", content: contextMessage },
         ],
       }),
     });
@@ -202,9 +234,10 @@ async function insertAnswer(): Promise<void> {
   if (!latestAnswer) return;
   try {
     await Word.run(async (context) => {
-      context.document
-        .getSelection()
-        .insertHtml(answerToWordHtml(latestAnswer), Word.InsertLocation.replace);
+      const target = replaceWholeDocument
+        ? context.document.body
+        : context.document.getSelection();
+      target.insertHtml(answerToWordHtml(latestAnswer), Word.InsertLocation.replace);
       await context.sync();
     });
     element("status").textContent = "Insérée dans le document";

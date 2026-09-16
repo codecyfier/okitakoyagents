@@ -2,6 +2,12 @@
 
 Ce projet ajoute un volet Word qui envoie une question a Omniroute, affiche la reponse et peut la remplacer a l'emplacement du curseur. Le bouton **Utiliser la selection** recupere le texte actuellement selectionne dans Word et le place dans la question.
 
+## Contexte automatique du document
+
+Le volet lit automatiquement le texte du document Word courant et la sélection active à chaque clic sur **Envoyer**. Tu peux donc demander directement « corrige les fautes », « analyse ce document » ou « améliore ce passage » sans recoller le contenu dans la zone de question.
+
+Le texte est envoyé au proxy Render puis à Omniroute pour traiter la demande. Pour éviter de dépasser les limites des modèles gratuits, le contexte est limité aux 50 000 premiers caractères du document. Pour un document plus long, sélectionne la partie à traiter ou demande une analyse par section.
+
 ## 1. Securite de la cle API
 
 La cle Omniroute n'est pas dans le code du navigateur. Le fichier `server.js` agit comme proxy : il recoit la demande du volet, ajoute la cle dans `Authorization`, puis appelle Omniroute. La cle doit etre configuree dans Render sous **Environment > Environment Variables** avec le nom `OMNIROUTE_API_KEY`.
