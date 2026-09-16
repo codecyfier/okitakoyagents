@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Omniroute pour Word</title>
+
+    <!-- Office JavaScript API -->
+    <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+
+    <link href="taskpane.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <section id="sideload-msg" class="message-panel">
+        <h1>Omniroute pour Word</h1>
+        <p>Le volet est prêt lorsque le complément est chargé dans Word.</p>
+    </section>
+    <main id="app-body" class="app" hidden>
+        <header class="app-header">
+            <div>
+                <p class="eyebrow">ASSISTANT IA</p>
+                <h1>Omniroute</h1>
+            </div>
+            <span class="status-dot" aria-label="Prêt"></span>
+        </header>
+        <label for="model">Modèle</label>
+        <select id="model">
+            <option value="auto" selected>auto</option>
+            <option value="auto/best-coding">auto/best-coding</option>
+            <option value="auto/best-reasoning">auto/best-reasoning</option>
+            <option value="auto/best-fast">auto/best-fast</option>
+            <option value="auto/best-vision">auto/best-vision</option>
+            <option value="auto/best-chat">auto/best-chat</option>
+            <option value="oc/big-pickle">oc/big-pickle</option>
+            <option value="oc/deepseek-v4-flash-free">oc/deepseek-v4-flash-free</option>
+        </select>
+        <label for="question">Votre question</label>
+        <textarea id="question" rows="6" placeholder="Que voulez-vous faire avec ce document ?"></textarea>
+        <div class="actions">
+            <button id="use-selection" class="button secondary" type="button">Utiliser la sélection</button>
+            <button id="send" class="button primary" type="button">Envoyer</button>
+        </div>
+        <section class="answer-section" aria-live="polite">
+            <div class="section-heading">
+                <h2>Réponse</h2>
+                <span id="status" class="status">En attente</span>
+            </div>
+            <div id="answer" class="answer">La réponse apparaîtra ici.</div>
+            <button id="insert" class="button insert" type="button" disabled>Insérer dans le document</button>
+        </section>
+    </main>
+</body>
+
+</html>

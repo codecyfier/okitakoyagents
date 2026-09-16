@@ -1,0 +1,30 @@
+html, body { width: 100%; min-height: 100%; margin: 0; }
+body { box-sizing: border-box; padding: 22px; color: #252525; background: #f7f4ef; font: 14px/1.45 "Segoe UI", sans-serif; }
+*, *::before, *::after { box-sizing: inherit; }
+.app { max-width: 520px; margin: 0 auto; }
+.app-header { display: flex; justify-content: space-between; align-items: start; margin-bottom: 25px; padding-bottom: 18px; border-bottom: 1px solid #d9d3ca; }
+.eyebrow { margin: 0 0 3px; color: #9b4d2f; font-size: 11px; font-weight: 700; letter-spacing: 1.6px; }
+h1, h2, p { margin-top: 0; }
+h1 { margin-bottom: 0; font: 700 29px/1.1 Georgia, serif; letter-spacing: 0; }
+h2 { margin-bottom: 0; font-size: 16px; }
+.status-dot { width: 10px; height: 10px; margin-top: 6px; border-radius: 50%; background: #4b805e; box-shadow: 0 0 0 5px #dce9dd; }
+label { display: block; margin: 0 0 7px; color: #665f56; font-size: 12px; font-weight: 700; }
+select, textarea { width: 100%; margin-bottom: 18px; border: 1px solid #c9c1b6; border-radius: 4px; background: #fffdf9; color: #252525; font: inherit; }
+select { height: 38px; padding: 0 10px; }
+textarea { min-height: 120px; padding: 12px; resize: vertical; }
+select:focus, textarea:focus { outline: 2px solid #d29374; outline-offset: 1px; border-color: #9b4d2f; }
+.actions { display: flex; gap: 9px; justify-content: flex-end; margin-bottom: 28px; }
+.button { min-height: 36px; padding: 8px 14px; border: 0; border-radius: 4px; cursor: pointer; font: 600 13px "Segoe UI", sans-serif; }
+.button:disabled { cursor: default; opacity: .5; }
+.primary { background: #9b4d2f; color: white; }
+.primary:hover:not(:disabled) { background: #7d3c25; }
+.secondary { border: 1px solid #b9afa3; background: transparent; color: #584f47; }
+.secondary:hover:not(:disabled) { background: #ece5dc; }
+.answer-section { padding-top: 18px; border-top: 1px solid #d9d3ca; }
+.section-heading { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 10px; }
+.status { color: #756c62; font-size: 12px; }
+.answer { min-height: 125px; margin-bottom: 13px; padding: 13px; white-space: pre-wrap; overflow-wrap: anywhere; border: 1px solid #ded7ce; border-radius: 4px; background: #fffdf9; color: #3b3835; }
+.insert { width: 100%; background: #315e48; color: white; }
+.insert:hover:not(:disabled) { background: #244a38; }
+.message-panel { padding: 28px; }
+.message-panel h1 { margin-bottom: 8px; }
