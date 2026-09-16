@@ -2,10 +2,10 @@
 <OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0" xmlns:ov="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="TaskPaneApp">
   <Id>8d9a8e1c-1d5c-4af5-8bb8-7df8c0d4f6ab</Id>
   <Version>1.0.0.0</Version>
-  <ProviderName>Omniroute</ProviderName>
+  <ProviderName>Okitakoy</ProviderName>
   <DefaultLocale>fr-FR</DefaultLocale>
-  <DisplayName DefaultValue="Omniroute pour Word" />
-  <Description DefaultValue="Assistant IA Omniroute dans Microsoft Word." />
+  <DisplayName DefaultValue="Okitakoy CoreAI" />
+  <Description DefaultValue="Assistant IA Okitakoy CoreAI dans Microsoft Word." />
   <IconUrl DefaultValue="https://okitakoy-agents.onrender.com/assets/icon-32.png" />
   <HighResolutionIconUrl DefaultValue="https://okitakoy-agents.onrender.com/assets/icon-80.png" />
   <SupportUrl DefaultValue="https://okitakoy-agents.onrender.com/" />
@@ -25,7 +25,7 @@
   </DefaultSettings>
   <Permissions>ReadWriteDocument</Permissions>
   <VersionOverrides xmlns="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="VersionOverridesV1_0">
-    <Description resid="Omniroute.Description" />
+    <Description resid="CoreAI.Description" />
     <Requirements>
       <bt:Sets DefaultMinVersion="1.3">
         <bt:Set Name="WordApi" MinVersion="1.3" />
@@ -37,18 +37,18 @@
           <FunctionFile resid="Commands.Url" />
           <ExtensionPoint xsi:type="PrimaryCommandSurface">
             <OfficeTab id="TabHome">
-              <Group id="Omniroute.GroupV2">
-                <Label resid="Omniroute.GroupLabel" />
+              <Group id="CoreAI.GroupV2">
+                <Label resid="CoreAI.GroupLabel" />
                 <Icon>
                   <bt:Image size="16" resid="Icon.16" />
                   <bt:Image size="32" resid="Icon.32" />
                   <bt:Image size="80" resid="Icon.80" />
                 </Icon>
-                <Control xsi:type="Button" id="Omniroute.ShowTaskpaneV2">
-                  <Label resid="Omniroute.ButtonLabel" />
+                <Control xsi:type="Button" id="CoreAI.ShowTaskpaneV2">
+                  <Label resid="CoreAI.ButtonLabel" />
                   <Supertip>
-                    <Title resid="Omniroute.ButtonLabel" />
-                    <Description resid="Omniroute.ButtonDescription" />
+                    <Title resid="CoreAI.ButtonLabel" />
+                    <Description resid="CoreAI.ButtonDescription" />
                   </Supertip>
                   <Icon>
                     <bt:Image size="16" resid="Icon.16" />
@@ -56,7 +56,7 @@
                     <bt:Image size="80" resid="Icon.80" />
                   </Icon>
                   <Action xsi:type="ShowTaskpane">
-                    <TaskpaneId>OmnirouteTaskpaneV2</TaskpaneId>
+                    <TaskpaneId>CoreAITaskpaneV2</TaskpaneId>
                     <SourceLocation resid="Taskpane.Url" />
                   </Action>
                 </Control>
@@ -77,12 +77,12 @@
         <bt:Url id="Commands.Url" DefaultValue="https://okitakoy-agents.onrender.com/commands.html" />
       </bt:Urls>
       <bt:ShortStrings>
-        <bt:String id="Omniroute.GroupLabel" DefaultValue="Omniroute" />
-        <bt:String id="Omniroute.ButtonLabel" DefaultValue="Ouvrir Omniroute" />
+        <bt:String id="CoreAI.GroupLabel" DefaultValue="Okitakoy CoreAI" />
+        <bt:String id="CoreAI.ButtonLabel" DefaultValue="Ouvrir CoreAI" />
       </bt:ShortStrings>
       <bt:LongStrings>
-        <bt:String id="Omniroute.Description" DefaultValue="Assistant IA Omniroute pour Word." />
-        <bt:String id="Omniroute.ButtonDescription" DefaultValue="Ouvre le volet de l'assistant IA Omniroute." />
+        <bt:String id="CoreAI.Description" DefaultValue="Assistant IA Okitakoy CoreAI pour Word." />
+        <bt:String id="CoreAI.ButtonDescription" DefaultValue="Ouvre le volet de l'assistant IA Okitakoy CoreAI." />
       </bt:LongStrings>
     </Resources>
   </VersionOverrides>

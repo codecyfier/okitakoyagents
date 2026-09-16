@@ -5,7 +5,9 @@ body { box-sizing: border-box; padding: 22px; color: #252525; background: #f7f4e
 .app-header { display: flex; justify-content: space-between; align-items: start; margin-bottom: 25px; padding-bottom: 18px; border-bottom: 1px solid #d9d3ca; }
 .eyebrow { margin: 0 0 3px; color: #9b4d2f; font-size: 11px; font-weight: 700; letter-spacing: 1.6px; }
 h1, h2, p { margin-top: 0; }
-h1 { margin-bottom: 0; font: 700 29px/1.1 Georgia, serif; letter-spacing: 0; }
+.brand-lockup { display: flex; gap: 10px; align-items: center; }
+.brand-mark { width: 34px; height: 34px; border-radius: 9px; }
+h1 { margin-bottom: 0; font: 700 25px/1.1 Georgia, serif; letter-spacing: 0; }
 h2 { margin-bottom: 0; font-size: 16px; }
 .status-dot { width: 10px; height: 10px; margin-top: 6px; border-radius: 50%; background: #4b805e; box-shadow: 0 0 0 5px #dce9dd; }
 label { display: block; margin: 0 0 7px; color: #665f56; font-size: 12px; font-weight: 700; }

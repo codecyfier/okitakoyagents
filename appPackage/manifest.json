@@ -4,15 +4,15 @@
     "manifestVersion": "devPreview",
     "version": "1.0.0",
     "name": {
-        "short": "okitakoyagents",
-        "full": "Full name for okitakoyagents"
+        "short": "Okitakoy CoreAI",
+        "full": "Okitakoy CoreAI pour Word"
     },
     "description": {
-        "short": "A template to get started.",
-        "full": "This is the template to get started."
+        "short": "Assistant IA Okitakoy CoreAI pour Word.",
+        "full": "Okitakoy CoreAI aide à rédiger, structurer et mettre en forme les documents Word."
     },
     "developer": {
-        "name": "Contoso",
+        "name": "Okitakoy",
         "websiteUrl": "https://okitakoy-agents.onrender.com",
         "privacyUrl": "https://okitakoy-agents.onrender.com/",
         "termsOfUseUrl": "https://okitakoy-agents.onrender.com/"
@@ -21,7 +21,7 @@
         "outline": "assets/outline.png",
         "color": "assets/color.png"
     },
-    "accentColor": "#230201",
+    "accentColor": "#14231f",
     "localizationInfo": {
         "defaultLanguageTag": "en-us",
         "additionalLanguages": []
@@ -137,7 +137,7 @@
                             "groups": [
                                 {
                                     "id": "msgReadGroup",
-                                    "label": "Contoso Add-in",
+                                    "label": "Okitakoy CoreAI",
                                     "icons": [
                                         {
                                             "size": 16,
@@ -217,7 +217,7 @@
                             "groups": [
                                 {
                                     "id": "msgReadGroup",
-                                    "label": "Contoso Add-in",
+                                    "label": "Okitakoy CoreAI",
                                     "icons": [
                                         {
                                             "size": 16,

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title desc">
+  <title id="title">Okitakoy CoreAI</title>
+  <desc id="desc">Monogramme K avec circuit intelligent</desc>
+  <rect width="256" height="256" rx="56" fill="#14231f"/>
+  <path d="M61 54v148M61 128l83-74M61 128l83 74" fill="none" stroke="#f5f0e8" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M143 54h30M143 202h30M174 54v30M174 172v30" fill="none" stroke="#d9815b" stroke-width="12" stroke-linecap="round"/>
+  <circle cx="192" cy="54" r="13" fill="#e8b274"/>
+  <circle cx="192" cy="202" r="13" fill="#e8b274"/>
+  <path d="M174 99h25c15 0 27 12 27 27v4c0 15-12 27-27 27h-25" fill="none" stroke="#d9815b" stroke-width="9" stroke-linecap="round"/>
+  <circle cx="226" cy="128" r="9" fill="#e8b274"/>
+</svg>

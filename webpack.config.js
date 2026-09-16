@@ -50,6 +50,13 @@ module.exports = async (env, options) => {
             filename: "assets/[name][ext][query]",
           },
         },
+        {
+          test: /\.svg$/,
+          type: "asset/resource",
+          generator: {
+            filename: "assets/[name][ext][query]",
+          },
+        },
       ],
     },
     plugins: [
@@ -62,6 +69,10 @@ module.exports = async (env, options) => {
         patterns: [
           {
             from: "appPackage/assets/*",
+            to: "assets/[name][ext][query]",
+          },
+          {
+            from: "appPackage/assets/*.svg",
             to: "assets/[name][ext][query]",
           },
           {
